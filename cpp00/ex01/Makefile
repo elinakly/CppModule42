@@ -1,10 +1,10 @@
-NAME			= PhoneBook
+NAME			= phonebook
 
-CFLAGS			= -Wall -Werror -Wextra -std=c++98
+CFLAGS			= -Wall -Werror -Wextra
 CXX				= g++
 
 # --- Source File Lists ---
-SRCS =	= PhoneBook.cpp
+SRCS =	phonebook.cpp
 
 # --- Object File Generation ---
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
