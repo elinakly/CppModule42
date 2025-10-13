@@ -17,25 +17,16 @@ void print_menu()
     std::cout << "==================\n";
 }
 
-void PhoneBook::add_contact()
+void PhoneBook::phone_number(Contact &contact)
 {
     std::string line;
-    Contact &contact = contacts[index];
-    std::cout << "ENTER FIRST NAME: \n";
-    std::getline(std::cin >> std::ws, contact.first_name); 
-    std::cout << "ENTER LAST NAME: \n";
-    std::getline(std::cin >> std::ws, contact.last_name); 
-    std::cout <<  "ENTER NICKNAME: \n";
-    std::getline(std::cin >> std::ws, contact.nickname); 
     while (true)
     {
         std::cout << "ENTER PHONE NUMBER: ";
         std::getline(std::cin >> std::ws, line);
-
         int i = 0;
         while (i < (int)line.length() && std::isdigit(line[i]))
             i++;
-
         if (i == (int)line.length() && line.length() >= 10 && line.length() <= 15)
         {
             contact.phonenumber = line;
@@ -44,8 +35,20 @@ void PhoneBook::add_contact()
         else
             std::cout << "Enter a valid phone number (10-15 digits only)\n";
     }
+}
+
+void PhoneBook::add_contact()
+{
+    Contact &contact = contacts[index];
+    std::cout << "ENTER FIRST NAME: \n";
+    std::getline(std::cin >> std::ws, contact.first_name);
+    std::cout << "ENTER LAST NAME: \n";
+    std::getline(std::cin >> std::ws, contact.last_name);
+    std::cout <<  "ENTER NICKNAME: \n";
+    std::getline(std::cin >> std::ws, contact.nickname);
+    phone_number(contact);
     std::cout << "ENTER DARKEST SECRET: ";
-    std::getline(std::cin >> std::ws, contact.darkest_secret); // wc to skip whitespaces
+    std::getline(std::cin >> std::ws, contact.darkest_secret);
     index = (index + 1) % 8;
     if (saved_contacts < 8)
         saved_contacts++;
@@ -62,7 +65,7 @@ void truncate_and_print(std::string str)
         std::cout << std::setw(10) << str;
 }
 
-void PhoneBook::search()
+void PhoneBook::print_index()
 {
     std::cout << " ___________________________________________\n";
     std::cout << "|                                           |\n";
@@ -70,16 +73,38 @@ void PhoneBook::search()
     std::cout << "|___________________________________________|\n";
     if (saved_contacts == 0)
     {
-        std::cout << "| No contacts saved yet.                   |\n";
-        std::cout << "|                                          |\n";
-        std::cout << "| PRESS ENTER TO OPEN THE MENU             |\n";
-        std::cout << "===========================================\n";
+        std::cout << "| No contacts saved yet.                    |\n";
+        std::cout << "|===========================================|\n";
+        std::cout << "| PRESS ENTER TO OPEN THE MENU              |\n";
+        std::cout << "============================================\n";
         return;
     }
     std::cout << " ___________________________________________\n";
     std::cout << "|     Index|First Name| Last Name|  Nickname|\n";
     std::cout << "|----------|----------|----------|----------|\n";
+}
 
+void PhoneBook::print_info(int i)
+{
+    int pos = (index - i + 8) % 8;
+    std::cout << "============================================\n";
+    std::cout << "| First Name: " << contacts[pos].first_name << std::endl;
+    std::cout << "| Last Name: " << contacts[pos].last_name << std::endl;
+    std::cout << "| Nickname: " << contacts[pos].nickname << std::endl;
+    std::cout << "| Phone Number: " << contacts[pos].phonenumber << std::endl;
+    std::cout << "| Darkest Secret: " << contacts[pos].darkest_secret << std::endl;
+    std::cout << "============================================\n";
+    std::cout << "| PRESS ENTER TO OPEN THE MENU              \n";
+    std::cout << "============================================\n";
+}
+
+void PhoneBook::search()
+
+{
+    std::string input;
+    print_index();
+    if (saved_contacts == 0)
+        return;
     int total = saved_contacts;
     for (int i = 0; i < total; i++)
     {
@@ -92,30 +117,18 @@ void PhoneBook::search()
         truncate_and_print(contacts[pos].nickname);
         std::cout << "|\n";
     }
-
     std::cout << "| PRESS INDEX TO SEE ADDITIONAL INFO        |\n";
-    std::cout << "| PRESS ENTER TO OPEN THE MENU             |\n";
-    std::cout << "===========================================\n";
-
-    std::string input;
+    std::cout << "| PRESS ENTER TO OPEN THE MENU              |\n";
+    std::cout << "============================================\n";
     std::getline(std::cin, input);
     int i = std::atoi(input.c_str());
-
     if (i < 1 || i > saved_contacts)
     {
         std::cout << "Invalid index.\n";
         print_menu();
         return;
     }
-
-    int pos = (index - i + 8) % 8;
-    std::cout << "============================================\n";
-    std::cout << "| First Name: " << contacts[pos].first_name << std::endl;
-    std::cout << "| Last Name: " << contacts[pos].last_name << std::endl;
-    std::cout << "| Nickname: " << contacts[pos].nickname << std::endl;
-    std::cout << "| Phone Number: " << contacts[pos].phonenumber << std::endl;
-    std::cout << "| Darkest Secret: " << contacts[pos].darkest_secret << std::endl;
-    std::cout << "============================================\n";
+    print_info(i);
 }
 
 int main(int ac, char *ag[])

@@ -23,12 +23,13 @@ class PhoneBook
 		int		index = 0;
 		int		saved_contacts = 0;
     public:
+        void phone_number(Contact &contact);
         void add_contact();
         void search();
+        void print_index();
+        void print_info(int i);
 };
 
 void print_menu();
-// void PhoneBook::add_contact();
-// void PhoneBook::search();
 
 #endif
