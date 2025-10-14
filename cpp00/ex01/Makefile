@@ -4,7 +4,7 @@ CFLAGS			= -Wall -Werror -Wextra
 CXX				= g++
 
 # --- Source File Lists ---
-SRCS =	phonebook.cpp
+SRCS =	phonebook.cpp main.cpp
 
 # --- Object File Generation ---
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
