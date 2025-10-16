@@ -1,10 +1,10 @@
-NAME			= phonebook
+NAME			= BraiiiiiiiinnnnzzzZ
 
 CFLAGS			= -Wall -Werror -Wextra
 CXX				= g++
 
 # --- Source File Lists ---
-SRCS =	PhoneBook.cpp main.cpp
+SRCS =	newZombie.cpp main.cpp randomChump.cpp Zombie.cpp
 
 # --- Object File Generation ---
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)

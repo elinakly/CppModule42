@@ -1,10 +1,10 @@
-NAME			= phonebook
+NAME			= Moarbrainz
 
 CFLAGS			= -Wall -Werror -Wextra
 CXX				= g++
 
 # --- Source File Lists ---
-SRCS =	PhoneBook.cpp main.cpp
+SRCS =	zombieHorde.cpp main.cpp  Zombie.cpp
 
 # --- Object File Generation ---
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)

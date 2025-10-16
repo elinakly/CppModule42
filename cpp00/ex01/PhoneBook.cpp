@@ -1,4 +1,4 @@
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 void print_menu()
 {
@@ -15,6 +15,39 @@ void print_menu()
 	std::cout << "|                 |\n";
 	std::cout << "|3. EXIT          |\n";
 	std::cout << " =================\n";
+}
+
+void PhoneBook::print_index()
+{
+	std::cout << " ___________________________________________\n";
+	std::cout << "|                                           |\n";
+	std::cout << "|              LIST OF CONTACTS             |\n";
+	std::cout << "|___________________________________________|\n";
+	if (saved_contacts == 0)
+	{
+		std::cout << "| No contacts saved yet.                    |\n";
+		std::cout << "|===========================================|\n";
+		std::cout << "| PRESS ENTER TO OPEN THE MENU              |\n";
+		std::cout << "============================================\n";
+		return;
+	}
+	std::cout << " ___________________________________________\n";
+	std::cout << "|     Index|First Name| Last Name|  Nickname|\n";
+	std::cout << "|----------|----------|----------|----------|\n";
+}
+
+void PhoneBook::print_info(int i)
+{
+	int pos = (index - i + 8) % 8;
+	std::cout << "============================================\n";
+	std::cout << "| First Name: " << contacts[pos].first_name << std::endl;
+	std::cout << "| Last Name: " << contacts[pos].last_name << std::endl;
+	std::cout << "| Nickname: " << contacts[pos].nickname << std::endl;
+	std::cout << "| Phone Number: " << contacts[pos].phonenumber << std::endl;
+	std::cout << "| Darkest Secret: " << contacts[pos].darkest_secret << std::endl;
+	std::cout << "============================================\n";
+	std::cout << "| PRESS ENTER TO OPEN THE MENU              \n";
+	std::cout << "============================================\n";
 }
 
 void PhoneBook::phone_number(Contact &contact)
@@ -65,47 +98,13 @@ void truncate_and_print(std::string str)
 		std::cout << std::setw(10) << str;
 }
 
-void PhoneBook::print_index()
-{
-	std::cout << " ___________________________________________\n";
-	std::cout << "|                                           |\n";
-	std::cout << "|              LIST OF CONTACTS             |\n";
-	std::cout << "|___________________________________________|\n";
-	if (saved_contacts == 0)
-	{
-		std::cout << "| No contacts saved yet.                    |\n";
-		std::cout << "|===========================================|\n";
-		std::cout << "| PRESS ENTER TO OPEN THE MENU              |\n";
-		std::cout << "============================================\n";
-		return;
-	}
-	std::cout << " ___________________________________________\n";
-	std::cout << "|     Index|First Name| Last Name|  Nickname|\n";
-	std::cout << "|----------|----------|----------|----------|\n";
-}
-
-void PhoneBook::print_info(int i)
-{
-	int pos = (index - i + 8) % 8;
-	std::cout << "============================================\n";
-	std::cout << "| First Name: " << contacts[pos].first_name << std::endl;
-	std::cout << "| Last Name: " << contacts[pos].last_name << std::endl;
-	std::cout << "| Nickname: " << contacts[pos].nickname << std::endl;
-	std::cout << "| Phone Number: " << contacts[pos].phonenumber << std::endl;
-	std::cout << "| Darkest Secret: " << contacts[pos].darkest_secret << std::endl;
-	std::cout << "============================================\n";
-	std::cout << "| PRESS ENTER TO OPEN THE MENU              \n";
-	std::cout << "============================================\n";
-}
-
 void PhoneBook::search()
 {
 	std::string input;
 	print_index();
 	if (saved_contacts == 0)
 		return;
-	int total = saved_contacts;
-	for (int i = 0; i < total; i++)
+	for (int i = 0; i < saved_contacts; i++)
 	{
 		int pos = (index - 1 - i + 8) % 8;
 		std::cout << "|" << std::setw(10) << i + 1 << "|";
@@ -120,7 +119,7 @@ void PhoneBook::search()
 	std::cout << "| PRESS ENTER TO OPEN THE MENU              |\n";
 	std::cout << "============================================\n";
 	std::getline(std::cin, input);
-	int i = std::atoi(input.c_str());
+	int i = std::atoi(input.c_str()); //use c_str because atoi func accept const char* not std::string
 	if (i < 1 || i > saved_contacts)
 	{
 		std::cout << "Invalid index.\n";
