@@ -13,12 +13,12 @@ Fixed::~Fixed()
 
 Fixed::Fixed(const int nbr)
 {
-
+	std::cout << "Int constructor called\n";
 }
 
 Fixed::Fixed(const float nbr)
 {
-
+	std::cout << "Float constructor called\n";
 }
 
 Fixed::Fixed(const Fixed& other)
@@ -51,10 +51,16 @@ void Fixed::setRawBits( int const raw )
 
 float Fixed::toFloat( void ) const
 {
-
+	return static_cast<float>(fixed_point) / (1 << nbr_bit); //static_cast<float> -- saverthan (float) hifts 1 left by the number of fractional bits (e.g., 1 << 8 = 256).
 }
 
 int Fixed::toInt( void ) const
 {
 	
+}
+
+std::ostream& operator<<(std::ostream& out, const Fixed& fixed)
+{
+	out << fixed.toFloat(); //we use to_float to see real value of my fixed_point 
+	return(out);
 }
