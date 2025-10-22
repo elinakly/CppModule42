@@ -6,16 +6,17 @@ Fixed::Fixed()
 	fixed_point = 0;
 }
 
+Fixed::Fixed(const Fixed& other)
+{
+	std::cout << "Copy constructor called\n";
+	this->fixed_point = other.getRawBits();
+}
+
 Fixed::~Fixed()
 {
 	std::cout << "Destructor called\n";
 }
 
-Fixed::Fixed(const Fixed& other)
-{
-	std::cout << "Copy constructor called\n";
-	this->fixed_point = other.fixed_point;
-}
 
 Fixed& Fixed::operator=(const Fixed& other)
 {

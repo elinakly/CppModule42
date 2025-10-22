@@ -14,17 +14,20 @@ Fixed::~Fixed()
 Fixed::Fixed(const int nbr)
 {
 	std::cout << "Int constructor called\n";
+	fixed_point = nbr << nbr_bit;
 }
 
 Fixed::Fixed(const float nbr)
 {
 	std::cout << "Float constructor called\n";
+	// shift the fractional part into int, roundf() to round to closest integer 
+	fixed_point = (roundf(nbr * (1 << nbr_bit)));
 }
 
 Fixed::Fixed(const Fixed& other)
 {
 	std::cout << "Copy constructor called\n";
-	this->fixed_point = other.fixed_point;
+	this->fixed_point = other.getRawBits();
 }
 
 Fixed& Fixed::operator=(const Fixed& other)
@@ -51,12 +54,12 @@ void Fixed::setRawBits( int const raw )
 
 float Fixed::toFloat( void ) const
 {
-	return static_cast<float>(fixed_point) / (1 << nbr_bit); //static_cast<float> -- saverthan (float) hifts 1 left by the number of fractional bits (e.g., 1 << 8 = 256).
+	return static_cast<float>(fixed_point) / (1 << nbr_bit); //static_cast<float> -- saverthan (float) shifts 1 left by the number of fractional bits (e.g., 1 << 8 = 256).
 }
 
 int Fixed::toInt( void ) const
 {
-	
+	return fixed_point >> nbr_bit;  //shift right to drop the fractional bits
 }
 
 std::ostream& operator<<(std::ostream& out, const Fixed& fixed)
