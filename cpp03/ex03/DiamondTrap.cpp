@@ -1,7 +1,6 @@
 #include "DiamondTrap.hpp"
 
 DiamondTrap::DiamondTrap()
-    : ClapTrap("Default_clap_name"), name("Default")
 {
     std::cout << "Default DiamondTrap constructor called\n";
     this->hit_points = FragTrap::Frag_hit_points;
@@ -10,15 +9,15 @@ DiamondTrap::DiamondTrap()
 }
 
 DiamondTrap::DiamondTrap(std::string _name)
-    : ClapTrap(_name + "_clap_name"), // initialize virtual base only
-      ScavTrap(),                     // default initialize ScavTrap
-      FragTrap(),                     // default initialize FragTrap
+    : ClapTrap(_name + "_clap_name"),
+      ScavTrap(_name),
+      FragTrap(_name),
       name(_name)
 {
-    hit_points = FragTrap::Frag_hit_points;
-    energy_point = ScavTrap::Scav_energy_points;
-    attack_damage = FragTrap::Frag_attack_damage;
-    std::cout << "DiamondTrap name constructor called.\n";
+    this->hit_points = Frag_hit_points;
+    this->energy_point = Scav_energy_points;
+    this->attack_damage = Frag_attack_damage;
+    std::cout << "Name DiamondTrap constructor called.\n";
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& other)
@@ -29,9 +28,9 @@ DiamondTrap::DiamondTrap(const DiamondTrap& other)
 {
     std::cout << "Copy DiamondTrap constructor called.\n";
 
-    this->hit_points = other.hit_points;
-    this->energy_point = other.energy_point;
-    this->attack_damage = other.attack_damage;
+    // this->hit_points = other.hit_points;
+    // this->energy_point = other.energy_point;
+    // this->attack_damage = other.attack_damage;
 }
 
 
@@ -45,7 +44,7 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other)
 {
 	if (this != &other)
 	{
-		this->ClapTrap::operator=(other);  // works only in inharetance 
+		ClapTrap::operator=(other);  // works only in inharetance 
         name = other.name;
 		std::cout << "DiamondTrap copy assignment called.\n";
 	}

@@ -5,7 +5,7 @@ ScavTrap::ScavTrap() : ClapTrap("Default")
     hit_points = 100;
     Scav_energy_points = 50;
     attack_damage = 20;
-    std::cout << "Default constractor ScavTrap is called\n";
+    std::cout << "Default ScavTrap constractor is called\n";
 }
 
 ScavTrap::ScavTrap(std::string n) : ClapTrap(n)

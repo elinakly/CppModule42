@@ -5,7 +5,7 @@ FragTrap::FragTrap() : ClapTrap("Default")
     Frag_hit_points = 100;
     energy_point = 100;
     Frag_attack_damage = 30;
-    std::cout << "Default constractor FragTrap is called\n";
+    std::cout << "Default FragTrap constractor is called\n";
 }
 
 FragTrap::FragTrap(std::string n) : ClapTrap(n)
