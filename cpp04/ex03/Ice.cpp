@@ -2,7 +2,7 @@
 
 Ice::Ice() : AMateria("ice")
 {
-    std::cout << "Default Ice constructor called\n"
+    std::cout << "Default Ice constructor called\n";
 }
 
 Ice::Ice(const Ice& other) : AMateria(other)
@@ -18,7 +18,7 @@ Ice::~Ice()
 
 Ice& Ice::operator=(const Ice& other)
 {
-    if(this != other)
+    if(this != &other)
     {
         AMateria::operator=(other);
         std::cout << "Ice copy assignment called\n";
@@ -33,7 +33,7 @@ AMateria* Ice::clone() const
 }
 
 
-void ice::use(ICharacter &target)
+void Ice::use(ICharacter &target)
 {
     std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
 }

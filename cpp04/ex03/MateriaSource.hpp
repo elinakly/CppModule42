@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <string>
+#include "IMateriaSource.hpp"
+#include "AMateria.hpp"
 
 #define slot 4
 

@@ -1,6 +1,6 @@
 NAME			= phonebook
 
-CFLAGS			= -Wall -Werror -Wextra
+CFLAGS			= -Wall -Werror -Wextra -g
 CXX				= g++
 
 # --- Source File Lists ---

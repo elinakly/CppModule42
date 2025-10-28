@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include "AMateria.hpp"
 
 class Ice : public AMateria
 {
@@ -14,5 +15,4 @@ class Ice : public AMateria
 
         AMateria* clone() const override;
         void use(ICharacter &target) override;
-        
-}
+};

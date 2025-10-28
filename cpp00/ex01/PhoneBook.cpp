@@ -40,11 +40,11 @@ void PhoneBook::print_info(int i)
 {
 	int pos = (index - i + 8) % 8;
 	std::cout << "============================================\n";
-	std::cout << "| First Name: " << contacts[pos].first_name << std::endl;
-	std::cout << "| Last Name: " << contacts[pos].last_name << std::endl;
-	std::cout << "| Nickname: " << contacts[pos].nickname << std::endl;
-	std::cout << "| Phone Number: " << contacts[pos].phonenumber << std::endl;
-	std::cout << "| Darkest Secret: " << contacts[pos].darkest_secret << std::endl;
+	std::cout << "| First Name: " << contacts[pos].get_first() << std::endl;
+	std::cout << "| Last Name: " << contacts[pos].get_last() << std::endl;
+	std::cout << "| Nickname: " << contacts[pos].get_nick() << std::endl;
+	std::cout << "| Phone Number: " << contacts[pos].get_phone() << std::endl;
+	std::cout << "| Darkest Secret: " << contacts[pos].get_dark() << std::endl;
 	std::cout << "============================================\n";
 	std::cout << "| PRESS ENTER TO OPEN THE MENU              \n";
 	std::cout << "============================================\n";
@@ -56,13 +56,14 @@ void PhoneBook::phone_number(Contact &contact)
 	while (true)
 	{
 		std::cout << "ENTER PHONE NUMBER: ";
-		std::getline(std::cin >> std::ws, line);
+		if (!std::getline(std::cin >> std::ws, line))
+			exit(0);
 		int i = 0;
 		while (i < (int)line.length() && std::isdigit(line[i]))
 			i++;
 		if (i == (int)line.length() && line.length() >= 10 && line.length() <= 15)
 		{
-			contact.phonenumber = line;
+			contact.set_phone(line);
 			break;
 		}
 		else
@@ -73,15 +74,30 @@ void PhoneBook::phone_number(Contact &contact)
 void PhoneBook::add_contact()
 {
 	Contact &contact = contacts[index];
+	std::string input;
 	std::cout << "ENTER FIRST NAME: \n";
-	std::getline(std::cin >> std::ws, contact.first_name);
+	if(!std::getline(std::cin >> std::ws, input))
+		exit(0);
+	contact.set_first(input);
+
 	std::cout << "ENTER LAST NAME: \n";
-	std::getline(std::cin >> std::ws, contact.last_name);
-	std::cout <<  "ENTER NICKNAME: \n";
-	std::getline(std::cin >> std::ws, contact.nickname);
-	phone_number(contact);
+	if(!std::getline(std::cin >> std::ws, input))
+		exit(0);
+	contact.set_last(input);
+
+	phone_number(contact); 
+
+	std::cout << "ENTER NICKNAME: \n";
+	if(!std::getline(std::cin >> std::ws, input))
+		exit(0);
+	contact.set_nick(input);
+
 	std::cout << "ENTER DARKEST SECRET: ";
-	std::getline(std::cin >> std::ws, contact.darkest_secret);
+	if(!std::getline(std::cin >> std::ws, input))
+		exit(0);
+	contact.set_dark(input);
+
+
 	index = (index + 1) % 8;
 	if (saved_contacts < 8)
 		saved_contacts++;
@@ -108,17 +124,18 @@ void PhoneBook::search()
 	{
 		int pos = (index - 1 - i + 8) % 8;
 		std::cout << "|" << std::setw(10) << i + 1 << "|";
-		truncate_and_print(contacts[pos].first_name);
+		truncate_and_print(contacts[pos].get_first());
 		std::cout << "|";
-		truncate_and_print(contacts[pos].last_name);
+		truncate_and_print(contacts[pos].get_last());
 		std::cout << "|";
-		truncate_and_print(contacts[pos].nickname);
+		truncate_and_print(contacts[pos].get_nick());
 		std::cout << "|\n";
 	}
 	std::cout << "| PRESS INDEX TO SEE ADDITIONAL INFO        |\n";
 	std::cout << "| PRESS ENTER TO OPEN THE MENU              |\n";
 	std::cout << "============================================\n";
-	std::getline(std::cin, input);
+	if(!std::getline(std::cin >> std::ws, input))
+		exit(0);
 	int i = std::atoi(input.c_str()); //use c_str because atoi func accept const char* not std::string
 	if (i < 1 || i > saved_contacts)
 	{

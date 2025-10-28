@@ -1,6 +1,6 @@
-#include "AMateria.cpp"
+#include "AMateria.hpp"
 
-AMateria::AMateria() : type("Default");
+AMateria::AMateria() : type("Default")
 {
     std::cout << "Default Material constructor called\n";
 }
@@ -17,7 +17,7 @@ AMateria::AMateria(const AMateria &other)  : type(other.type)
 
 AMateria& AMateria::operator=(const AMateria& other)
 {
-    if (this != other)
+    if (this != &other)
     {
         this->type = other.type;
         std::cout << "AMatireal copy assignment called\n";
