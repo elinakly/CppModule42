@@ -15,6 +15,6 @@ class Cat : public Animal
         ~Cat() override;
 
         Cat& operator=(const Cat& other);
-
+        Brain *getBrain() { return CatBrain; }
         void makeSound() const override;
 };
