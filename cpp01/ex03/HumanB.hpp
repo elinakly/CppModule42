@@ -11,7 +11,7 @@ class HumanB{
         std::string name;
         Weapon* weapon;
     public:
-        HumanB(const std::string& n) : name(n) {}
+        HumanB(const std::string& n) : name(n), weapon(nullptr) {}
         ~HumanB() = default;
         void attack();
         void setWeapon(Weapon& new_weapon);
