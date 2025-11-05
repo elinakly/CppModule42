@@ -9,13 +9,16 @@ int main( void )
 	// std::cout << "a - b = " << a - b << std::endl;
 	// std::cout << "a * b = " << a * b << std::endl;
 	// std::cout << "a / b = " << a / b << std::endl;
+	std::cout << "a  = " << a << std::endl;
+	std::cout << "++a  = " << ++a << std::endl;
+	std::cout << "a  = " << a << std::endl;
+	std::cout << "a++  = " << a++ << std::endl;
+	std::cout << "a  = " << a << std::endl;
+	std::cout << "b  = " << b << std::endl;
+	std::cout << "max (a, b)  = " << Fixed::max( a, b ) << std::endl;
 
-	std::cout << a << std::endl;
-	std::cout << ++a << std::endl;
-	std::cout << a << std::endl;
-	std::cout << a++ << std::endl;
-	std::cout << a << std::endl;
-	std::cout << b << std::endl;
-	std::cout << Fixed::max( a, b ) << std::endl;
+	Fixed c(2147483646);
+	Fixed d(2147483647);
+	std::cout << "c < d  = " << ((c < d) ? "true" : "false") << std::endl;
 	return 0;
 }

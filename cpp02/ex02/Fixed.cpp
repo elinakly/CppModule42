@@ -70,52 +70,60 @@ std::ostream& operator<<(std::ostream& out, const Fixed& fixed)
 
 bool	Fixed::operator>(const Fixed& other) const
 {
-	return this->toFloat() > other.toFloat();
+	return this->fixed_point > other.fixed_point;
 }
 
 bool	Fixed::operator<(const Fixed& other) const
 {
-	return this->toFloat() < other.toFloat();
+	return this->fixed_point < other.fixed_point;
 }
 
 bool	Fixed::operator>=(const Fixed& other) const
 {
-	return this->toFloat() >= other.toFloat();
+	return this->fixed_point >= other.fixed_point;
 }
 
 bool	Fixed::operator<=(const Fixed& other) const
 {
-	return this->toFloat() <= other.toFloat();
+	return this->fixed_point <= other.fixed_point;
 }
 
 bool	Fixed::operator==(const Fixed& other) const
 {
-	return this->toFloat() == other.toFloat();
+	return this->fixed_point == other.fixed_point;
 }
 
 bool	Fixed::operator!=(const Fixed& other) const
 {
-	return this->toFloat() != other.toFloat();
+	return this->fixed_point != other.fixed_point;
 }
 
-Fixed	Fixed::operator+(const Fixed& other) const
+Fixed Fixed::operator+( const Fixed &other ) const
 {
-	return Fixed(this->toFloat() + other.toFloat());
+	Fixed result;
+	result.setRawBits(this->getRawBits() + other.getRawBits()); 
+	return (result);
 }
 
-Fixed	Fixed::operator-(const Fixed& other) const
+Fixed Fixed::operator-( const Fixed &other ) const
 {
-	return Fixed(this->toFloat() - other.toFloat());
+	Fixed result;
+	result.setRawBits(this->getRawBits() - other.getRawBits());
+	return (result);
 }
 
-Fixed	Fixed::operator*(const Fixed& other) const
+Fixed Fixed::operator*( const Fixed &other ) const
 {
-	return Fixed(this->toFloat() * other.toFloat());
+	Fixed result;
+	result.setRawBits((this->getRawBits() * other.getRawBits()) >> nbr_bit);
+	return (result);
 }
 
-Fixed	Fixed::operator/(const Fixed& other) const
+Fixed Fixed::operator/( const Fixed &other ) const
 {
-	return Fixed(this->toFloat() / other.toFloat());
+	Fixed result;
+	result.setRawBits((this->getRawBits() << nbr_bit) / other.getRawBits());
+	return (result);
 }
 
 Fixed&	Fixed::operator++()
