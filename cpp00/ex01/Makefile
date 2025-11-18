@@ -1,7 +1,7 @@
 NAME			= phonebook
 
 CFLAGS			= -Wall -Werror -Wextra -g
-CXX				= g++
+CXX				= c++
 
 # --- Source File Lists ---
 SRCS =	PhoneBook.cpp main.cpp

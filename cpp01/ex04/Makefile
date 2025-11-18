@@ -1,7 +1,7 @@
 NAME			= SedIsForLosers
 
 CFLAGS			= -Wall -Werror -Wextra
-CXX				= g++
+CXX				= c++
 
 # --- Source File Lists ---
 SRCS =	main.cpp 

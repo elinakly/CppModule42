@@ -1,7 +1,7 @@
 NAME			= Materia
 
 CFLAGS			= -Wall -Werror -Wextra
-CXX				= g++
+CXX				= c++
 
 # --- Source File Lists ---
 SRCS =	main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp

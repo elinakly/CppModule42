@@ -1,7 +1,7 @@
 NAME			= megaphone
 
 CFLAGS			= -Wall -Werror -Wextra -std=c++98
-CXX				= g++
+CXX				= c++
 
 # --- Source File Lists ---
 SRCS =	megaphone.cpp

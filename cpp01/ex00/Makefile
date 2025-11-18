@@ -1,7 +1,7 @@
 NAME			= BraiiiiiiiinnnnzzzZ
 
 CFLAGS			= -Wall -Werror -Wextra
-CXX				= g++
+CXX				= c++
 
 # --- Source File Lists ---
 SRCS =	newZombie.cpp main.cpp randomChump.cpp Zombie.cpp

@@ -1,7 +1,7 @@
 NAME			= Polymorphism
 
 CFLAGS			= -Wall -Werror -Wextra
-CXX				= g++
+CXX				= c++
 
 # --- Source File Lists ---
 SRCS =	main.cpp Cat.cpp Dog.cpp Animal.cpp WrongCat.cpp WrongAnimal.cpp

@@ -1,7 +1,7 @@
 NAME			= UnnecessaryViolence
 
 CFLAGS			= -Wall -Werror -Wextra
-CXX				= g++
+CXX				= c++
 
 # --- Source File Lists ---
 SRCS =	main.cpp HumanA.cpp HumanB.cpp Weapon.cpp

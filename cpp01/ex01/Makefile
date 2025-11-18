@@ -1,7 +1,7 @@
 NAME			= Moarbrainz
 
 CFLAGS			= -Wall -Werror -Wextra
-CXX				= g++
+CXX				= c++
 
 # --- Source File Lists ---
 SRCS =	zombieHorde.cpp main.cpp  Zombie.cpp
