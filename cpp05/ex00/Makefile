@@ -4,7 +4,7 @@ CFLAGS			= -Wall -Werror -Wextra
 CXX				= c++
 
 # --- Source File Lists ---
-SRCS =	main.cpp Bureaucrat.cpp Bureaucrat.hpp
+SRCS =	main.cpp Bureaucrat.cpp
 
 # --- Object File Generation ---
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
