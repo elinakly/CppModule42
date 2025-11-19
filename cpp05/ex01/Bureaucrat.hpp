@@ -31,6 +31,7 @@ class Bureaucrat
 		unsigned int getGrade() const;
 		void IncrementGrade();
 		void DicrementGrade();
+		void signForm();
 };
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& bur);
