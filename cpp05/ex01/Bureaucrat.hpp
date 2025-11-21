@@ -2,11 +2,12 @@
 
 #include <string>
 #include <iostream>
+#include "Form.hpp"
 
 class Bureaucrat
 {
 	private:
-		std::string  name;
+		const std::string  name;
 		unsigned int grade;
 	public:
 		Bureaucrat(std::string  name, unsigned int grade);
@@ -31,7 +32,7 @@ class Bureaucrat
 		unsigned int getGrade() const;
 		void IncrementGrade();
 		void DicrementGrade();
-		void signForm();
+		void signForm(Form &F) const;
 };
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& bur);
