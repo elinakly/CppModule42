@@ -27,17 +27,16 @@ Form& Form::operator=(const Form& other)
 
 Form::~Form()
 {
-	
 }
 
 const char* Form::GradeTooHighException::what() const noexcept
 {
-	std::cout << "Form::Grade is too High\n";
+	return("Form::Grade is too High\n");
 }
 
 const char* Form::GradeTooLowException::what() const noexcept
 {
-	std::cout << "Form::Grade is too low\n";
+	return("Form::Grade is too low\n");
 }
 
 void Form::beSigned(const Bureaucrat &b)
