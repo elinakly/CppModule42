@@ -1,10 +1,10 @@
-NAME			= Bureaucrat1
+NAME			= Bureaucrat2
 
 CFLAGS			= -Wall -Werror -Wextra
 CXX				= c++
 
 # --- Source File Lists ---
-SRCS =	main.cpp Bureaucrat.cpp AForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp
+SRCS =	main.cpp Intern.cpp Bureaucrat.cpp AForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp
 
 # --- Object File Generation ---
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
