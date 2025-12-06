@@ -1,4 +1,4 @@
-NAME			= Bureaucrat1
+NAME			= Bureaucrat2
 
 CFLAGS			= -Wall -Werror -Wextra
 CXX				= c++
