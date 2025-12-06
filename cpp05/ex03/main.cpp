@@ -32,8 +32,10 @@ int main() {
         AForm* rrf;
         rrf = someRandomIntern.makeForm("robotomy request", "Bender");
         john.signForm(*rrf);
+        delete(rrf);
         AForm* wrong = someRandomIntern.makeForm("sdfs", "Bender"); 
         john.signForm(*wrong);
+        delete(wrong);
 
     } catch (std::exception &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
