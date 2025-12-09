@@ -3,16 +3,15 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
+#include <algorithm>
 
-class ScalarConvertor
+class ScalarConverter
 {
 	private:
-		ScalarConvertor() = delete;
-		ScalarConvertor(const ScalarConvertor& other) = delete;
-		ScalarConvertor& operator=(const ScalarConvertor& other) = delete;
-		~ScalarConvertor() = delete;
+		ScalarConverter() = delete;
+		ScalarConverter(const ScalarConverter& other) = delete;
+		ScalarConverter& operator=(const ScalarConverter& other) = delete;
+		~ScalarConverter() = delete;
 	public:
 		static void convert(std::string lit);
 };
-
-void toInt()

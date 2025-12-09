@@ -2,7 +2,11 @@
 
 int main(int argc, char *argv[])
 {
-	if(argc != 3)
+	if(argc != 2)
+	{	
 		std::cout << "To run a program do [./convert] [literal]\n";
-	ScalarConvertor::convert(argv[2]);
+		return(1);
+	}
+	ScalarConverter::convert(argv[1]);
+	return(0);
 }
