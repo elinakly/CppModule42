@@ -47,8 +47,13 @@ void convertFloat(std::string lit)
 	try
 	{
 		float value = std::stof(lit);
-		printCharValue(value); 
-		std::cout << "int: " << static_cast<int>(value) << "\n";
+		printCharValue(value);
+		if (value < INT_MIN || value > INT_MAX)
+		{
+			std::cout << "int: impossible\n";
+		}
+		else 
+			std::cout << "int: " << static_cast<int>(value) << "\n";
 		std::cout << "float: " << value << "\n";
 		std::cout << "double: " << static_cast<double>(value) << ".0\n";
 	} 
@@ -68,8 +73,18 @@ void convertDouble(std::string lit)
 	{
 		double value = std::stod(lit);
 		printCharValue(value); 
-		std::cout << "int: " << static_cast<int>(value) << "\n";
-		std::cout << "float: " << static_cast<float>(value) << ".0f\n";
+		if (value < INT_MIN || value > INT_MAX)
+		{
+			std::cout << "int: impossible\n";
+		}
+		else
+			std::cout << "int: " << static_cast<int>(value) << "\n";
+		if (value < -FLT_MIN || value > FLT_MAX)
+		{
+			std::cout << "float: impossible\n";
+		}
+		else
+			std::cout << "float: " << static_cast<float>(value) << ".0f\n";
 		std::cout << "double: " << value << "\n";
 	} 
 	catch (std::invalid_argument& e) 
