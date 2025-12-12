@@ -71,7 +71,7 @@ void identify(Base& p) //if we cast to reff cast throws an exception "bad cast"
 
 int main()
 {
-    std::srand(std::time(nullptr));
+    
     Base* p = generate();
     identify(p);
     identify(*p);
