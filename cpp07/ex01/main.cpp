@@ -22,6 +22,18 @@ int main()
     
     std::cout << "After increment: ";
     iter(arr, 4, print);
+    std::cout << "\n";   /// should work
+
+    const int arr2[] = {1, 2, 3, 4};
+    
+    std::cout << "Before increment: ";
+    iter(arr2, 4, print);
+    std::cout << "\n";
+    
+    // iter(arr2, 4, increment); //shouldnt work
+    
+    std::cout << "After increment: ";
+    iter(arr2, 4, print);
     std::cout << "\n";
 
     return 0;

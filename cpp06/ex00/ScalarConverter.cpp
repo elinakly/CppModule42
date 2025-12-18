@@ -164,9 +164,12 @@ bool isint(std::string lit)
 
 int getType(std::string lit)
 {
-	size_t dotcount = std::count(lit.begin(), lit.end(), '.');
-	if(dotcount > 1)
-		return(6);
+	size_t dotcount = 0;
+	for (char c : lit)
+	{
+		if (c == '.')
+			dotcount++;
+	}
 	if (lit == "nanf" || lit == "-inff" || lit == "+inff" || lit == "-inf" || lit == "+inf" || lit == "nan")
 		return(1);
 	else if (lit.length() == 1 && !isdigit(lit[0]))

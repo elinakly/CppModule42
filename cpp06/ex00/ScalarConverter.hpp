@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
-#include <algorithm>
 #include <cfloat>
 #include <climits>
 

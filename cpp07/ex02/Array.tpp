@@ -49,7 +49,7 @@ Array<T>& Array<T>::operator=(const  Array<T>&  other)
 }
 
 template <typename T>
-T& Array<T>::operator[](unsigned int index) // every mothod that return a pointer must have const and non const version(STL)
+T& Array<T>::operator[](unsigned int index) // every method that return a pointer must have const and non const version(STL)
 {
     if (index >= _size)
         throw std::out_of_range("Index out of bounds");
