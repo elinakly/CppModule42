@@ -1,7 +1,7 @@
 #include "Array.hpp"
 
 template <typename T>
-Array<T>::Array() : _size(0), arr{nullptr} //<T> let the constructor knows witch exactly class to init(in this case class with template <T>) 
+Array<T>::Array() : _size(0), arr{nullptr} //<T> let the constructor knows witch exactly class to init -- in main -- Array<int> a; (in this case class with template <T>) 
 {
 }
 
@@ -49,7 +49,7 @@ Array<T>& Array<T>::operator=(const  Array<T>&  other)
 }
 
 template <typename T>
-T& Array<T>::operator[](unsigned int index)
+T& Array<T>::operator[](unsigned int index) // every mothod that return a pointer must have const and non const version(STL)
 {
     if (index >= _size)
         throw std::out_of_range("Index out of bounds");

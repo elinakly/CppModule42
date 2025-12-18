@@ -9,7 +9,7 @@ class Serializer
     private:
         Serializer() = delete;
         Serializer(const Serializer &other) = delete;
-        const Serializer& operator=(const Serializer& other) = delete;
+        Serializer& operator=(const Serializer& other) = delete;
         ~Serializer() = delete;
     public:
         static uintptr_t serialize(Data* ptr);
