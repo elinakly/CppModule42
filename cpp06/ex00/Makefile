@@ -4,7 +4,7 @@ CFLAGS			= -Wall -Werror -Wextra
 CXX				= c++
 
 # --- Source File Lists ---
-SRCS =	main.cpp ScalarConverter.cpp
+SRCS =	main.cpp ScalarConverter.cpp Helper_func.cpp
 
 # --- Object File Generation ---
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)

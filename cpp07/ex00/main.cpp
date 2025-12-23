@@ -19,5 +19,4 @@ int main()
     std::cout << "min( c, d ) = " << ft_min( c, d ) << std::endl;
     std::cout << "max( c, d ) = " << ft_max( c, d ) << std::endl;
     return 0;
-    return(0);
 }

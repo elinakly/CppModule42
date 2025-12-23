@@ -20,14 +20,14 @@ Base * generate(void)
     }
 }
 
-void identify(Base* p) //if we cast to pointer cast throws an exception "nullptr"
+void identify(Base* p) //if we cast to pointer cast throws an "nullptr"
 {
     if (dynamic_cast<A*>(p))
-        std::cout << "A\n";
+        std::cout << "identity by pinter A\n";
     else if (dynamic_cast<B*>(p))
-        std::cout << "B\n";
+        std::cout << "identity by pinter B\n";
     else if (dynamic_cast<C*>(p))
-        std::cout << "C\n";
+        std::cout << "identity by pinter C\n";
     else
         std::cout << "Unknown type\n";
 }
@@ -37,7 +37,9 @@ void identify(Base& p) //if we cast to reff cast throws an exception "bad cast"
     {
         try
         { 
-            dynamic_cast<A&>(p); std::cout << "A\n";
+            A& a = dynamic_cast<A&>(p);
+            (void)a;
+            std::cout << "identity by ref A\n";
             return;
         } 
         catch (std::bad_cast& e) 
@@ -48,7 +50,9 @@ void identify(Base& p) //if we cast to reff cast throws an exception "bad cast"
     {    
         try
         { 
-            dynamic_cast<B&>(p); std::cout << "B\n";
+            B& b = dynamic_cast<B&>(p);
+            (void)b;
+            std::cout << "identity by ref B\n";
             return;
         } 
         catch (std::bad_cast& e) 
@@ -58,7 +62,9 @@ void identify(Base& p) //if we cast to reff cast throws an exception "bad cast"
     {
         try
         { 
-            dynamic_cast<C&>(p); std::cout << "C\n";
+            C& c = dynamic_cast<C&>(p);
+            (void)c;
+            std::cout << "identity by ref C\n";
             return;
         } 
         catch (std::bad_cast& e) 
@@ -71,7 +77,7 @@ void identify(Base& p) //if we cast to reff cast throws an exception "bad cast"
 
 int main()
 {
-    
+    std::srand(std::time(nullptr)); 
     Base* p = generate();
     identify(p);
     identify(*p);
