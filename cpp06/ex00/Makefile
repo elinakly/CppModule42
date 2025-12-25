@@ -1,20 +1,18 @@
-NAME        := convert
+NAME        = convert
 
-CXX         := c++
-CXXFLAGS    := -Wall -Wextra -Werror
-SRCS        := main.cpp ScalarConverter.cpp
-OBJS_DIR    := objs
-OBJS        := $(SRCS:%.cpp=$(OBJS_DIR)/%.o)
+CXX         = c++
+CXXFLAGS    = -Wall -Wextra -Werror
 
-# --- Source File Lists ---
-SRCS =	main.cpp ScalarConverter.cpp Helper_func.cpp
+SRCS        = main.cpp Helper_func.cpp ScalarConverter.cpp
+OBJS_DIR    = obj
+OBJS        = $(SRCS:%.cpp=$(OBJS_DIR)/%.o)
+
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-# Compile .cpp -> .o into objs/
 $(OBJS_DIR)/%.o: %.cpp
 	@mkdir -p $(OBJS_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
