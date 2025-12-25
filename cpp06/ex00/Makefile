@@ -1,33 +1,31 @@
-NAME			= convert
+NAME        := convert
 
-CFLAGS			= -Wall -Werror -Wextra
-CXX				= c++
+CXX         := c++
+CXXFLAGS    := -Wall -Wextra -Werror
+SRCS        := main.cpp ScalarConverter.cpp
+OBJS_DIR    := objs
+OBJS        := $(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
 # --- Source File Lists ---
 SRCS =	main.cpp ScalarConverter.cpp Helper_func.cpp
 
-# --- Object File Generation ---
-OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
-
-# --- Make Targets ---
 all: $(NAME)
 
-# --- Final Executable Linkage ---
-$(NAME): $(OBJS) 
-	$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-# --- Compilation Rules for Object Files ---
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(dir $@)
-	$(CXX) $(CFLAGS) 
+# Compile .cpp -> .o into objs/
+$(OBJS_DIR)/%.o: %.cpp
+	@mkdir -p $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# --- Cleaning Rules ---
-clean :
+clean:
 	rm -rf $(OBJS_DIR)
 
-fclean : clean
+fclean: clean
 	rm -f $(NAME)
 
-re : fclean all
+re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re
+

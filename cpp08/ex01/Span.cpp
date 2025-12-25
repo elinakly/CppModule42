@@ -35,7 +35,7 @@ int Span::shortestSpan() const
     std::vector<int> sorted = arr;
     std::sort(sorted.begin(), sorted.end());
     int minSpan = sorted[1] - sorted[0];
-    for(auto iter = sorted.begin() + 1; iter != sorted.end() - 1 ; ++iter) //preincrement is efficienter for iter
+    for(auto iter = sorted.begin() + 1; iter != sorted.end() - 1 ; ++iter) //preincrement is efficienter for iter 
     {
         int diff = *iter - *(iter - 1);
         if (minSpan > diff)
@@ -48,8 +48,9 @@ int Span::longestSpan() const
 {
     if(arr.size() < 2)
         throw NotEnoughElement();
-    auto [minIt, maxIt] = std::minmax_element(arr.begin(), arr.end());
-    return *maxIt - *minIt;
+    auto [minIt, maxIt] = std::minmax_element(arr.begin(), arr.end()); //auto [minIt, maxIt] --- std::pair<Iterator, Iterator> 
+                                                                    // minmax elemennt its algorithm that will put min value index into minInt, max into maxInt
+    return *maxIt - *minIt; // we redeference index into value 
 }
 
 const char* Span::NotEnoughElement::what() const noexcept
