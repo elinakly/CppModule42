@@ -19,7 +19,6 @@ Span& Span::operator=(const Span& other)
     return(*this);
 }
 
-
 void Span::addNumber(int Number)
 {
     if(arr.size() < _size)
@@ -27,6 +26,7 @@ void Span::addNumber(int Number)
     else
         throw VectorIsFull();
 }
+
 
 int Span::shortestSpan() const
 {
@@ -51,6 +51,13 @@ int Span::longestSpan() const
     auto [minIt, maxIt] = std::minmax_element(arr.begin(), arr.end()); //auto [minIt, maxIt] --- std::pair<Iterator, Iterator> 
                                                                     // minmax elemennt its algorithm that will put min value index into minInt, max into maxInt
     return *maxIt - *minIt; // we redeference index into value 
+}
+
+void Span::printContaner() const
+{
+    for (const int& n : arr)
+        std::cout << n << " ";
+    std::cout << "\n";
 }
 
 const char* Span::NotEnoughElement::what() const noexcept

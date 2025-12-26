@@ -4,6 +4,8 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <list>
+#include <ctime> 
 
 class Span
 {
@@ -19,8 +21,13 @@ class Span
         void addNumber(int Number);
         int shortestSpan() const;
         int longestSpan() const;
-        void addNumbers(std::vector<int> Numbers);
-
+        void printContaner() const;
+        template <typename Iter>
+        void addNumbers(Iter begin, Iter end)
+        {
+            for(; begin != end; ++begin)
+                this->addNumber(*begin);
+        }
         class NotEnoughElement: public std::exception
         {
             const char* what() const noexcept;
