@@ -4,12 +4,6 @@
 #include <iostream>
 #include <fstream>
 #include <cctype>
-// class BitcoinExchange{
-//     private:
-        
-//     public:
 
-
-// };
-
-bool file_pasing(char *argv);
+bool file_parsing(char *argv);
+bool data_file_parsing(std::string Data_File);

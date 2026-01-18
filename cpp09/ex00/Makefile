@@ -3,7 +3,7 @@ NAME        = btc
 CXX         = c++
 CXXFLAGS    = -Wall -Wextra -Werror
 
-SRCS        = main.cpp BitcoinExchange.cpp utils.cpp
+SRCS        = main.cpp BitcoinExchange.cpp
 OBJS_DIR    = obj
 OBJS        = $(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
