@@ -8,4 +8,5 @@ int main(int argc, char *argv[])
         return(1);
     if(!file_parsing(argv[1]))
         return(1);
+    return(0);
 }

@@ -4,11 +4,8 @@ static std::map<std::string, float> g_db;
 
 static bool isLeapYear(unsigned int Year)
 {
-    if (Year % 400 == 0)
-        return true;
-    if (Year % 100 == 0)
-        return false;
-    return (Year % 4 == 0);
+    return (Year % 400 == 0)
+        || (Year % 4 == 0 && Year % 100 != 0);
 }
 
 static int daysInMonth(unsigned int Month, unsigned int Year)
@@ -35,6 +32,8 @@ static bool valid_value(const std::string &Value)
 {
     try
     {
+        if (Value.empty())
+            return(std::cerr << "Error: You must put a value.\n", false);
         float v = std::stof(Value);
         if (v < 0)
             return (std::cerr << "Error: not a positive number.\n", false);  
@@ -58,10 +57,11 @@ static bool valid_data(const std::string &y, const std::string &m,
         unsigned int Month = std::stoi(m);
         unsigned int Date = std::stoi(d);
 
-        if (Year < 2009 || Year > 2022 || !valid_date(Year, Month, Date))
+        if (Year < 2009 || Year > 2022)
+            return (std::cerr << "Error: Year in data base from 2009 to 2022\n", false);
+        if (!valid_date(Year, Month, Date))
             return (std::cerr << "Error: bad input => "
                     << y << "-" << m << "-" << d << "\n", false);
-
         if (!valid_value(Value))
             return (false);
     }
@@ -74,17 +74,19 @@ static bool valid_data(const std::string &y, const std::string &m,
 
 bool get_rate(const std::string &date, float &rate)
 {
-    std::map<std::string, float>::iterator it = g_db.lower_bound(date);
+    auto it = g_db.lower_bound(date); //Finds the beginning of a subsequence matching given key.  
+                                    //auto is std::map<std::string, float>::iterator
 
-    if (it != g_db.end() && it->first == date)
+    if (it != g_db.end() && it->first == date) //if date exist set rate to it 
+                                                // if you reach .end that mean tha there is no exact date in pool
     {
         rate = it->second;
         return true;
     }
-    if (it == g_db.begin())
+    if (it == g_db.begin()) //its a first accurance so no smaller date exist, cant get a smallerrate 
         return false;
 
-    --it;
+    --it; // take smaller(previous rate)
     rate = it->second;
     return true;
 }
@@ -97,8 +99,7 @@ static bool line_parsing(const std::string &line)
 
     if (pos_char == std::string::npos || pos_dash1 == std::string::npos || pos_dash2 == std::string::npos)
     {
-        std::cerr << "Error: bad input => " << line << "\n";
-        return false;
+        return(std::cerr << "Error: bad input => " << line << "\n", false);
     }
 
     std::string Year  = line.substr(0, pos_dash1);
@@ -109,8 +110,16 @@ static bool line_parsing(const std::string &line)
     if (!valid_data(Year, Month, Date, Value))
         return false;
 
-    float fValue = std::stof(Value);
-    std::string full_date = Year + "-" + Month + "-" + Date;
+    float fValue = std::stof(Value); //dont need trycatch bc we did it in valid_data
+    int y = std::stoi(Year);
+    int m = std::stoi(Month);
+    int d = std::stoi(Date);
+
+    std::string full_date =
+        std::to_string(y) + "-" +
+        (m < 10 ? "0" : "") + std::to_string(m) + "-" +
+        (d < 10 ? "0" : "") + std::to_string(d);
+
     float rate;
     if (!get_rate(full_date, rate))
     {
@@ -118,7 +127,7 @@ static bool line_parsing(const std::string &line)
         return false;
     }
 
-    std::cout << full_date << " => " << fValue
+    std::cout << full_date << " => " << fValue << " * " << rate 
               << " = " << fValue * rate << "\n";
     return true;
 }
@@ -133,7 +142,7 @@ bool file_parsing(char *argv)
         return (std::cerr << "Error: empty file\n", false);
 
     if (line != "date | value")
-        return (std::cerr << "Error: invalid header\n", false);
+        return (std::cerr << "Error: invalid header in input file\n", false);
     while(std::getline(file, line))
     {
        line_parsing(line);
@@ -152,15 +161,20 @@ bool data_file_parsing(std::string Data_File)
     if (!std::getline(file, line))
         return (std::cerr << "Error: empty file\n", false);
     if (line != "date,exchange_rate")
-        return (std::cerr << "Error: invalid header\n", false);
+        return (std::cerr << "Error: invalid header in data file\n", false);
     while(std::getline(file, line))
     {
-        size_t pos = line.find(',');
+        size_t pos = line.find(',');  //find , in string
         if (pos == std::string::npos)
             continue;
-        std::string date = line.substr(0, pos);
-        float rate = std::stof(line.substr(pos + 1));
-        g_db[date] = rate;
+        std::string date = line.substr(0, pos); // date == from 0 to pos of ','
+        try {
+            float rate = std::stof(line.substr(pos + 1));
+            g_db[date] = rate;  // soo here we put map<str, float> (map<key, value>) so it looks like map<date, rate>
+        } catch (...)
+        {
+            return (std::cerr << "Error: Data_file bad input\n", false);            
+        }
     }
     return(true);
 }
