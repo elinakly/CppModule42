@@ -1,6 +1,7 @@
 #include "PmergeMe.hpp"
 
-void PmergeMe::parse(int argc, char **argv)
+template <typename T>
+void PmergeMe<T>::parse(int argc, char **argv)
 {
     for (int i = 1; i < argc; i++)
     {
@@ -16,17 +17,17 @@ void PmergeMe::parse(int argc, char **argv)
             throw std::runtime_error("Error: non valid value: " + s);
         if (value < 0)
             throw std::runtime_error("Error: negative value: " + s);
-        if (std::find(_tempvec.begin(), _tempvec.end(), value) != _tempvec.end())
+        if (std::find(_tempcontainer.begin(), _tempcontainer.end(), value) != _tempcontainer.end())
             throw std::runtime_error("Error: duplicate number: " + s);
-        _tempvec.push_back(value);
-        _vec.push_back(value);
-        _deq.push_back(value);
+        _tempcontainer.push_back(value);
+        _container.push_back(value);
     }
 }
 
-std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& right)
+template <typename T>
+T merge(const T& left,const T& right)
 {
-    std::vector<int> result;
+    T result;
     size_t i = 0, j = 0;
 
     while (i < left.size() && j < right.size())  /// while i < than the end of left string 
@@ -50,13 +51,14 @@ std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& rig
     return result;
 }
 
-std::vector<int> merge_sort(const std::vector<int>& arr) {
+template <typename T>
+T merge_sort(const T& arr) {
     if (arr.size() <= 1)
         return arr;
 
     size_t mid = arr.size() / 2; //now we have to parts
-    std::vector<int> left(arr.begin(), arr.begin() + mid); // 0 to size / 2
-    std::vector<int> right(arr.begin() + mid, arr.end()); // size / 2 to the end
+    T left(arr.begin(), arr.begin() + mid); // 0 to size / 2
+    T right(arr.begin() + mid, arr.end()); // size / 2 to the end
 
     left = merge_sort(left); // recursion to separate up to 1 number in left part
     right = merge_sort(right); // recursion to separate up to 1 number in right part
@@ -97,9 +99,10 @@ std::vector<size_t> Jacobsthal(size_t n) //jac numbers are 0 1 1 3 5 ..
     return order;
 }
 
-std::vector<int> final_sort(const std::vector<int>& pend, std::vector<int>& sorted_main_chain)
+template <typename T>
+T final_sort(const T& pend, T& sorted_main_chain)
 {
-    std::vector<int> result = sorted_main_chain;
+    T result = sorted_main_chain;
     for (size_t index : Jacobsthal(pend.size())) //jacob return index
     {
         if(index >= pend.size())
@@ -111,11 +114,12 @@ std::vector<int> final_sort(const std::vector<int>& pend, std::vector<int>& sort
     return(result);
 }
 
-void PmergeMe::sort_vec()
+template <typename T>
+void PmergeMe<T>::sort_container()
 {
-    std::vector<int> temp = _vec;
-    std::vector<int> main_chain; //biggest
-    std::vector<int> pend; //smalest
+    T temp = _container;
+    T main_chain; //biggest
+    T pend; //smalest
     for(size_t i = 0; i < temp.size() - 1 ; i+=2)
     {
         if (temp[i] > temp[i + 1]) // find biggest and push to A
@@ -131,27 +135,24 @@ void PmergeMe::sort_vec()
     }
     if(temp.size() % 2 != 0)
         pend.push_back(temp.back()); ///if odd number push to pend
-    std::vector<int> sorted_main_chain = merge_sort(main_chain);
-    this->_vec = final_sort(pend, sorted_main_chain);
+    T sorted_main_chain = merge_sort(main_chain);
+    this->_container = final_sort(pend, sorted_main_chain);
 }
 
-// void PmergeMe::sort_deq()
-// {
-
-// }
-
-void PmergeMe::print_result() const
+template <typename T>
+void PmergeMe<T>::print_result() const
 {
-    auto end_it = _tempvec.begin() + std::min(_tempvec.size(), size_t(10));
+    auto end_it = _tempcontainer.begin() + std::min(_tempcontainer.size(), size_t(10));
     std::cout << "Before: ";
-    for(auto i = _tempvec.begin(); i < end_it; ++i)
+    for(auto i = _tempcontainer.begin(); i < end_it; ++i)
         std::cout << *i << " ";
-    if (_tempvec.size() > 10)
+    if (_tempcontainer.size() > 10)
         std::cout << "[...]";     
     std::cout << "\nAfter: ";
-    auto end_it_vec = _vec.begin() + std::min(_vec.size(), size_t(10));
-    for(auto i = _vec.begin(); i < end_it_vec; ++i)
+    auto end_it_container = _container.begin() + std::min(_container.size(), size_t(10));
+    for(auto i = _container.begin(); i < end_it_container; ++i)
         std::cout << *i << " ";
-    if (_tempvec.size() > 10)
-        std::cout << "[...]\n"; 
+    if (_tempcontainer.size() > 10)
+        std::cout << "[...]";
+    std::cout << "\n";
 }

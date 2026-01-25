@@ -2,7 +2,7 @@ NAME        = PmergeMe
 CXX         = c++
 CXXFLAGS    = -Wall -Wextra -Werror
 
-SRCS        = main.cpp PmergeMe.cpp
+SRCS        = main.cpp
 OBJS_DIR    = obj
 OBJS        = $(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
