@@ -12,9 +12,10 @@ static bool run_program(int argc, char *argv[])
             std::cerr << e.what() << "\n";
             return(false);}
         auto end = std::chrono::high_resolution_clock::now();   // stop timing
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+        std::chrono::duration<double, std::micro> duration = end - start;
         vec.print_result();
-        std::cout << "Time to process a range of elements with std::vector<int> " << duration << " µs\n";    
+        std::cout << "Time to process a range of elements with std::vector<int> "<< std::fixed << std::setprecision(5)
+          << duration.count() << " us\n";  
     }
 
     {
@@ -27,9 +28,9 @@ static bool run_program(int argc, char *argv[])
             std::cerr << e.what() << "\n";
             return(false);}
         auto end1 = std::chrono::high_resolution_clock::now();
-        auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(end1 - start1).count();
-
-        std::cout << "Time to process a range of elements with std::deque<int> " << duration1 << " µs\n";    
+        std::chrono::duration<double, std::micro> duration = end1 - start1;
+        std::cout << "Time to process a range of elements with std::deque<int> "<< std::fixed << std::setprecision(5)
+          << duration.count() << " us\n";
     }
     return(true);
 }
