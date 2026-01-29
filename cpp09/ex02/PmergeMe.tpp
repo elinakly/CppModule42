@@ -1,5 +1,6 @@
 #include "PmergeMe.hpp"
 
+size_t comparisons = 0;
 template <typename T>
 void PmergeMe<T>::parse(int argc, char **argv)
 {
@@ -33,13 +34,15 @@ T merge(const T& left,const T& right)
     while (i < left.size() && j < right.size())  /// while i < than the end of left string 
                                                 //&& j < than the end of right
     {
-        if (left[i] < right[j])            //compare i[0] to j[0]
+        if (left[i].first < right[j].first)            //compare i[0] to j[0]
         {
+            comparisons++; 
             result.push_back(left[i]); //if i < j push i to result -- so i its result[0]
             i++;
         } 
         else 
         {
+            comparisons++; 
             result.push_back(right[j]); //else push j  to result
             j++;
         }
@@ -100,19 +103,70 @@ std::vector<size_t> Jacobsthal(size_t n) //jac numbers are 0 1 1 3 5 ..
 }
 
 template <typename T>
-T final_sort(const T& pend, T& sorted_main_chain)
+T binary_insert_pos(
+    T begin,
+    T end,
+    int value)
+{
+    auto left = begin;
+    auto right = end;
+
+    while (left < right)
+    {
+        auto mid = left + (right - left) / 2;
+        comparisons++;
+        if (value < *mid)
+            right = mid;
+        else
+            left = mid + 1;
+    }
+    return(left);
+}
+
+template <typename T>
+T final_sort(const T& pend, const T& sorted_main_chain)
 {
     T result = sorted_main_chain;
+    if (!pend.empty())
+        result.insert(result.begin(), pend[0]);
     for (size_t index : Jacobsthal(pend.size())) //jacob return index
     {
+        if (index == 0) continue;
         if(index >= pend.size())
             throw "Wrong Jacobsthal index\n";
         int value = pend[index]; // search for valu eon exact jacob index
-        auto pos = std::lower_bound(result.begin(), result.end(), value); //// (binary sort)finds the first element not less than the value
+        auto pos = binary_insert_pos(result.begin(), result.end(), value); //// (binary sort)finds the first element not less than the value
         result.insert(pos, value);  //insert it to exact pos
     }
     return(result);
 }
+
+// template <typename T>
+// T final_sort(const T& pend, const T& main_chain)
+// {
+//     T result = main_chain;
+
+//     std::vector<size_t> a_pos(main_chain.size());
+//     for (size_t i = 0; i < a_pos.size(); ++i)
+//         a_pos[i] = i;
+//     result.insert(result.begin(), pend[0]);
+//     for (size_t& p : a_pos)
+//         ++p;
+//     for (size_t index : Jacobsthal(pend.size()))
+//     {
+//         if (index == 0) continue;
+//         if (index >= pend.size())
+//             throw "Wrong Jacobsthal index";
+//         int b = pend[index];
+//         size_t limit = a_pos[index];
+//         auto pos = binary_insert_pos(result, result.begin() + limit, b);
+//         result.insert(pos, b);
+//         for (size_t i = index; i < a_pos.size(); ++i)
+//             ++a_pos[i];
+//     }
+
+//     return result;
+// }
 
 template <typename T>
 void PmergeMe<T>::sort_container()
@@ -120,23 +174,28 @@ void PmergeMe<T>::sort_container()
     T temp = _container;
     T main_chain; //biggest
     T pend; //smalest
+    std::vector<std::pair<int,int>> pairs;
     for(size_t i = 0; i < temp.size() - 1 ; i+=2)
     {
-        if (temp[i] > temp[i + 1]) // find biggest and push to A
-        {    
-            main_chain.push_back(temp[i]);
-            pend.push_back(temp[i + 1]);
+        if (temp[i] > temp[i + 1]) // find biggest and push to A 
+        {
+            comparisons++; 
+            pairs.push_back({temp[i], temp[i + 1]});
         }
         else
         {
-            main_chain.push_back(temp[i + 1]);
-            pend.push_back(temp[i]);
+            comparisons++;
+            pairs.push_back({temp[i+1], temp[i]});
         }
     }
+    std::vector<std::pair<int,int>> sorted_main_chain = merge_sort(pairs);
+    for(const auto &p : sorted_main_chain)
+        main_chain.push_back(p.first);
+    for(const auto &p : sorted_main_chain)
+        pend.push_back(p.second);
     if(temp.size() % 2 != 0)
         pend.push_back(temp.back()); ///if odd number push to pend
-    T sorted_main_chain = merge_sort(main_chain);
-    this->_container = final_sort(pend, sorted_main_chain);
+    this->_container = final_sort(pend, main_chain);
 }
 
 template <typename T>
@@ -155,4 +214,5 @@ void PmergeMe<T>::print_result() const
     if (_tempcontainer.size() > 10)
         std::cout << "[...]";
     std::cout << "\n";
+    std::cout << "Comparisons: " << comparisons << "\n";
 }
